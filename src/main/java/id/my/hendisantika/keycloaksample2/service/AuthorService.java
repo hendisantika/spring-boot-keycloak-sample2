@@ -1,8 +1,11 @@
 package id.my.hendisantika.keycloaksample2.service;
 
+import id.my.hendisantika.keycloaksample2.model.entity.Author;
 import id.my.hendisantika.keycloaksample2.repository.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * Created by IntelliJ IDEA.
@@ -19,4 +22,9 @@ import org.springframework.stereotype.Service;
 public class AuthorService {
 
     private final AuthorRepository authorRepository;
+
+    public List<Author> getAllAuthors() {
+        List<Author> authorList = authorRepository.findAll();
+        return authorList;
+    }
 }
