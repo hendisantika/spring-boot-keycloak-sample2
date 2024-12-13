@@ -1,0 +1,61 @@
+server:
+  port: 8080
+
+spring:
+  application.name: spring-boot-keycloak-sample2
+  mvc:
+    servlet:
+      path: /api
+
+  cache:
+    type: redis
+  data:
+    redis:
+      host: localhost
+      port: 16379
+      password: p@123456
+      timeout: 60000
+
+  datasource:
+    url: jdbc:h2:mem:blog;DATABASE_TO_UPPER=false
+    driverClassName: org.h2.Driver
+    username: yu7i
+    password: 53cret
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:7080/realms/realm-sangkhim
+        jwt.jwk-set-uri: ${spring.security.oauth2.resourceserver.jwt.issuer-uri}/protocol/openid-connect/certs
+
+jwt:
+  auth:
+    converter.resource-id: yellow-ranger
+    converter.principal-attribute: preferred_username
+
+keycloak:
+  realm: PowerRanger
+  auth-server-url: http://localhost:7080/realms/${keycloak.realm}/protocol/openid-connect/token
+
+springdoc:
+  swagger-ui:
+    oauth:
+      client-id: yellow-ranger
+      client-secret: 41OSOFH2IpsA29IEhDvbBIssWFbSsjP8
+      realm: PowerRanger
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: info, health
+  endpoint:
+    startup:
+      access: unrestricted
