@@ -1,5 +1,7 @@
 package id.my.hendisantika.keycloaksample2.config;
 
+import io.github.bucket4j.distributed.proxy.ProxyManager;
+import io.github.bucket4j.grid.jcache.JCacheProxyManager;
 import org.redisson.config.Config;
 import org.redisson.jcache.configuration.RedissonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
@@ -46,5 +48,10 @@ public class RedisConfig {
         CacheManager manager = Caching.getCachingProvider().getCacheManager();
         manager.createCache("cache", RedissonConfiguration.fromConfig(config));
         return manager;
+    }
+
+    @Bean
+    ProxyManager<String> proxyManager(CacheManager cacheManager) {
+        return new JCacheProxyManager<>(cacheManager.getCache("cache"));
     }
 }
