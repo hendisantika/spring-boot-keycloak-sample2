@@ -1,4 +1,4 @@
-package id.my.hendisantika.keycloaksample2.config;
+package id.my.hendisantika.keycloaksample2.controller;
 
 import id.my.hendisantika.keycloaksample2.model.dto.PostDTO;
 import id.my.hendisantika.keycloaksample2.model.entity.Post;
