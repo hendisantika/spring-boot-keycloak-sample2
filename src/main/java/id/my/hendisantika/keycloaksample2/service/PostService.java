@@ -142,4 +142,16 @@ public class PostService {
             throw new BadRequestException("Delete error, please check ID and try again");
         }
     }
+
+    @CacheEvict(value = "posts", allEntries = true)
+    public void deleteById(Long id) {
+        log.info("Delete post with id {}", id);
+
+        Optional<Post> post = postRepository.findById(id);
+        if (post.isPresent()) {
+            postRepository.deleteById(id);
+        } else {
+            throw new BadRequestException("Delete error, please check ID and try again");
+        }
+    }
 }
