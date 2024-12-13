@@ -1,5 +1,6 @@
 package id.my.hendisantika.keycloaksample2.service;
 
+import id.my.hendisantika.keycloaksample2.exception.BadRequestException;
 import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
 import id.my.hendisantika.keycloaksample2.model.entity.Tag;
 import id.my.hendisantika.keycloaksample2.repository.TagRepository;
@@ -51,6 +52,15 @@ public class TagService {
             return tagRepository.save(tagUpdate);
         } else {
             return tagRepository.save(tagRequest);
+        }
+    }
+
+    public void deleteById(Long id) {
+        Optional<Tag> tag = tagRepository.findById(id);
+        if (tag.isPresent()) {
+            tagRepository.deleteById(id);
+        } else {
+            throw new BadRequestException("Delete error, please check ID and try again");
         }
     }
 }
