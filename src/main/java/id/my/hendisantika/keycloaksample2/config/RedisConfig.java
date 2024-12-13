@@ -1,6 +1,8 @@
 package id.my.hendisantika.keycloaksample2.config;
 
+import org.redisson.config.Config;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 /**
@@ -24,4 +26,14 @@ public class RedisConfig {
 
     @Value("${spring.data.redis.password}")
     String redisPassword;
+
+    @Bean
+    public Config config() {
+        Config config = new Config();
+        config
+                .useSingleServer()
+                .setAddress("redis://" + redisHost + ":" + redisPort)
+                .setPassword(redisPassword);
+        return config;
+    }
 }
