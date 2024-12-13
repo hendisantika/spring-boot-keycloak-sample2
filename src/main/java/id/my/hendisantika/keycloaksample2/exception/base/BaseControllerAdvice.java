@@ -1,5 +1,8 @@
 package id.my.hendisantika.keycloaksample2.exception.base;
 
+import id.my.hendisantika.keycloaksample2.exception.BadRequestException;
+import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
+import id.my.hendisantika.keycloaksample2.exception.DuplicateException;
 import id.my.hendisantika.keycloaksample2.exception.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -34,5 +37,20 @@ public class BaseControllerAdvice {
                 String.valueOf(HttpStatus.NOT_FOUND.value()),
                 "No resource found for your request. Please verify you request",
                 TIMESTAMP);
+    }
+
+    @ExceptionHandler({DataNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse dataNotFoundException(Exception ex) {
+        log.debug(ex.getMessage(), ex.getCause());
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.NOT_FOUND.value()), ex.getMessage(), TIMESTAMP);
+    }
+
+    @ExceptionHandler({BadRequestException.class, DuplicateException.class})
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ErrorResponse handleBadRequestException(Exception ex) {
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.BAD_REQUEST.value()), ex.getMessage(), TIMESTAMP);
     }
 }
