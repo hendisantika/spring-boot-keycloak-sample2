@@ -11,7 +11,8 @@ package id.my.hendisantika.keycloaksample2.exception;
  * To change this template use File | Settings | File Templates.
  */
 
-import org.hibernate.service.spi.ServiceException;
+
+import id.my.hendisantika.keycloaksample2.exception.base.ServiceException;
 
 /**
  * trigger for bad request exception
