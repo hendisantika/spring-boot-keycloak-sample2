@@ -1,5 +1,6 @@
 package id.my.hendisantika.keycloaksample2.service;
 
+import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
 import id.my.hendisantika.keycloaksample2.model.entity.Post;
 import id.my.hendisantika.keycloaksample2.repository.AuthorRepository;
 import id.my.hendisantika.keycloaksample2.repository.PostRepository;
@@ -12,6 +13,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.text.MessageFormat;
 import java.util.List;
 
 /**
@@ -51,5 +53,17 @@ public class PostService {
             postList = postRepository.findByTitleContaining(title);
         }
         return postList;
+    }
+
+    @Cacheable(value = "posts", key = "#id")
+    public Post getById(Long id) {
+        log.info("Getting post with ID {}.", id);
+
+        return postRepository
+                .findById(id)
+                .orElseThrow(
+                        () ->
+                                new DataNotFoundException(
+                                        MessageFormat.format("Post id {0} not found", String.valueOf(id))));
     }
 }
