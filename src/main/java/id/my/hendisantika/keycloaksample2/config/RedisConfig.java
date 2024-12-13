@@ -1,9 +1,13 @@
 package id.my.hendisantika.keycloaksample2.config;
 
 import org.redisson.config.Config;
+import org.redisson.jcache.configuration.RedissonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.cache.CacheManager;
+import javax.cache.Caching;
 
 /**
  * Created by IntelliJ IDEA.
@@ -35,5 +39,12 @@ public class RedisConfig {
                 .setAddress("redis://" + redisHost + ":" + redisPort)
                 .setPassword(redisPassword);
         return config;
+    }
+
+    @Bean
+    public CacheManager cacheManagerRateLimiting(Config config) {
+        CacheManager manager = Caching.getCachingProvider().getCacheManager();
+        manager.createCache("cache", RedissonConfiguration.fromConfig(config));
+        return manager;
     }
 }
