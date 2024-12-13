@@ -15,6 +15,7 @@
     <description>spring-boot-keycloak-sample2</description>
     <properties>
         <java.version>23</java.version>
+        <netty.version>4.2.0.RC1</netty.version>
     </properties>
     <dependencies>
         <dependency>
@@ -83,7 +84,12 @@
             <artifactId>bucket4j-spring-boot-starter</artifactId>
             <version>0.12.8</version>
         </dependency>
-
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-resolver-dns-native-macos</artifactId>
+            <version>${netty.version}</version> <!-- Replace with your Netty version -->
+            <classifier>osx-x86_64</classifier>
+        </dependency>
         <!-- aop -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
