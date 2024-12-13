@@ -4,6 +4,7 @@ import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
 import id.my.hendisantika.keycloaksample2.model.dto.PostDTO;
 import id.my.hendisantika.keycloaksample2.model.entity.Author;
 import id.my.hendisantika.keycloaksample2.model.entity.Post;
+import id.my.hendisantika.keycloaksample2.model.entity.Tag;
 import id.my.hendisantika.keycloaksample2.repository.AuthorRepository;
 import id.my.hendisantika.keycloaksample2.repository.PostRepository;
 import id.my.hendisantika.keycloaksample2.repository.TagRepository;
@@ -92,4 +93,15 @@ public class PostService {
             return postRepository.save(modelMapper.map(postRequest, Post.class));
         }
     }
+
+    public List<Tag> getAllTagsByPostId(Long id) {
+        if (!postRepository.existsById(id)) {
+            throw new DataNotFoundException(
+                    MessageFormat.format("Post id {0} not found", String.valueOf(id)));
+        }
+
+        List<Tag> tagList = postRepository.findById(id).get().getTagList();
+        return tagList;
+    }
+
 }
