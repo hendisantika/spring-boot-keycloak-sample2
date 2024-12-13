@@ -3,6 +3,7 @@ package id.my.hendisantika.keycloaksample2.exception.base;
 import id.my.hendisantika.keycloaksample2.exception.BadRequestException;
 import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
 import id.my.hendisantika.keycloaksample2.exception.DuplicateException;
+import id.my.hendisantika.keycloaksample2.exception.UnauthorizedException;
 import id.my.hendisantika.keycloaksample2.exception.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -52,5 +53,12 @@ public class BaseControllerAdvice {
     public ErrorResponse handleBadRequestException(Exception ex) {
         return new ErrorResponse(
                 String.valueOf(HttpStatus.BAD_REQUEST.value()), ex.getMessage(), TIMESTAMP);
+    }
+
+    @ExceptionHandler({UnauthorizedException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handleUnauthorizedException(Exception ex) {
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.UNAUTHORIZED.value()), ex.getMessage(), TIMESTAMP);
     }
 }
