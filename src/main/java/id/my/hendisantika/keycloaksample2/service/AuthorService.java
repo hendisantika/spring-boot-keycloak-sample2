@@ -1,5 +1,6 @@
 package id.my.hendisantika.keycloaksample2.service;
 
+import id.my.hendisantika.keycloaksample2.exception.BadRequestException;
 import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
 import id.my.hendisantika.keycloaksample2.model.entity.Author;
 import id.my.hendisantika.keycloaksample2.repository.AuthorRepository;
@@ -51,6 +52,15 @@ public class AuthorService {
             return authorRepository.save(authorUpdate);
         } else {
             return authorRepository.save(authorRequest);
+        }
+    }
+
+    public void deleteById(Long id) {
+        Optional<Author> author = authorRepository.findById(id);
+        if (author.isPresent()) {
+            authorRepository.deleteById(id);
+        } else {
+            throw new BadRequestException("Delete error, please check ID and try again");
         }
     }
 }
