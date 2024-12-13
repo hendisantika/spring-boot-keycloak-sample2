@@ -1,5 +1,7 @@
 package id.my.hendisantika.keycloaksample2.utils;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 /**
  * Created by IntelliJ IDEA.
  * Project : spring-boot-keycloak-sample2
@@ -27,5 +29,17 @@ public class HttpUtils {
     };
 
     private HttpUtils() {
+    }
+
+    public static String getRequestIP(HttpServletRequest request) {
+        for (String header : IP_HEADERS) {
+            String value = request.getHeader(header);
+            if (value == null || value.isEmpty()) {
+                continue;
+            }
+            String[] parts = value.split("\\s*,\\s*");
+            return parts[0];
+        }
+        return request.getRemoteAddr();
     }
 }
