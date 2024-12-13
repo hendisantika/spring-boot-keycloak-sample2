@@ -3,6 +3,7 @@ package id.my.hendisantika.keycloaksample2.exception.base;
 import id.my.hendisantika.keycloaksample2.exception.BadRequestException;
 import id.my.hendisantika.keycloaksample2.exception.DataNotFoundException;
 import id.my.hendisantika.keycloaksample2.exception.DuplicateException;
+import id.my.hendisantika.keycloaksample2.exception.ForbiddenException;
 import id.my.hendisantika.keycloaksample2.exception.UnauthorizedException;
 import id.my.hendisantika.keycloaksample2.exception.dto.ErrorResponse;
 import lombok.extern.slf4j.Slf4j;
@@ -60,5 +61,12 @@ public class BaseControllerAdvice {
     public ErrorResponse handleUnauthorizedException(Exception ex) {
         return new ErrorResponse(
                 String.valueOf(HttpStatus.UNAUTHORIZED.value()), ex.getMessage(), TIMESTAMP);
+    }
+
+    @ExceptionHandler({ForbiddenException.class})
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handleForbiddenException(Exception ex) {
+        return new ErrorResponse(
+                String.valueOf(HttpStatus.FORBIDDEN.value()), ex.getMessage(), TIMESTAMP);
     }
 }
