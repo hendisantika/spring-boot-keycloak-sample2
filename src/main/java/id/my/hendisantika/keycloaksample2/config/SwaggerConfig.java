@@ -29,7 +29,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SwaggerConfig implements WebMvcConfigurer {
 
     private static final String REDIRECT_URL = "/swagger-ui.html";
-    private static final String OAUTH_SCHEME_NAME = "client-sangkhim";
+    private static final String OAUTH_SCHEME_NAME = "yellow-ranger";
 
     @Value("${keycloak.auth-server-url}")
     String authServerUrl;
@@ -53,7 +53,7 @@ public class SwaggerConfig implements WebMvcConfigurer {
                 .info(
                         new Info()
                                 .title("Spring Boot 3 Keycloak")
-                                .description("")
+                                .description("Spring Boot 3 Keycloak")
                                 .version("0.0.1")
                                 .contact(new Contact().name("hendisantika").email("hendisantika@yahoo.co.id")))
                 .externalDocs(

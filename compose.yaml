@@ -9,14 +9,21 @@ services:
       - "7080:8080"
     command:
       - "start-dev"
+    networks:
+      - app-network
   cache:
-    image: redis:6.2-alpine
+    image: redis:7.4.1-alpine3.20
     restart: always
     ports:
       - '6379:6379'
     command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
     volumes:
       - cache:/data
+    networks:
+      - app-network
 volumes:
   cache:
     driver: local
+networks:
+  app-network:
+    driver: bridge
