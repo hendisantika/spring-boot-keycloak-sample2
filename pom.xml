@@ -15,7 +15,7 @@
     <description>spring-boot-keycloak-sample2</description>
     <properties>
         <java.version>23</java.version>
-        <netty.version>4.2.6.Final</netty.version>
+        <netty.version>4.2.7.Final</netty.version>
     </properties>
     <dependencies>
         <dependency>
