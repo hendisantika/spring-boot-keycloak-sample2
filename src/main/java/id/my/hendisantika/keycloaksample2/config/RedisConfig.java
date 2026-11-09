@@ -5,11 +5,13 @@ import com.giffing.bucket4j.spring.boot.starter.config.cache.jcache.JCacheCacheR
 import io.github.bucket4j.distributed.proxy.ProxyManager;
 import io.github.bucket4j.grid.jcache.JCacheProxyManager;
 import org.redisson.config.Config;
+import org.redisson.config.SingleServerConfig;
 import org.redisson.jcache.configuration.RedissonConfiguration;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.util.StringUtils;
 
 import javax.cache.CacheManager;
 import javax.cache.Caching;
@@ -33,16 +35,18 @@ public class RedisConfig {
     @Value("${spring.data.redis.port}")
     String redisPort;
 
-    @Value("${spring.data.redis.password}")
+    @Value("${spring.data.redis.password:}")
     String redisPassword;
 
     @Bean
     public Config config() {
         Config config = new Config();
-        config
+        SingleServerConfig singleServerConfig = config
                 .useSingleServer()
                 .setAddress("redis://" + redisHost + ":" + redisPort);
-//                .setPassword(redisPassword);
+        if (StringUtils.hasText(redisPassword)) {
+            singleServerConfig.setPassword(redisPassword);
+        }
         return config;
     }
 

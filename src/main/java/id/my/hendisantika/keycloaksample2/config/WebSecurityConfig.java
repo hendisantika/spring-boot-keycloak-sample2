@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
-import static org.springframework.boot.autoconfigure.security.servlet.PathRequest.toH2Console;
+import static org.springframework.boot.security.autoconfigure.web.servlet.PathRequest.toH2Console;
 import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
 
 /**
@@ -67,7 +67,6 @@ public class WebSecurityConfig {
                                 .jwt(jwt -> jwt.jwtAuthenticationConverter(jwtAuthConverter)));
 
         http.sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(STATELESS));
-
         return http.build();
     }
 }
